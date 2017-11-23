@@ -34,29 +34,29 @@ public class JFormularioPago extends JFormularioBase implements IVistaPagoConChe
 
 		this.tabla = new JTable(new MiModeloChequesDisponibles(modelo, this.getMontoAPagar()));
 		this.getContentPane().add(tabla);
-		actualizar();
 
-	}
-
-	@Override
-	public void actualizar() {
 		tabla.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				if (!e.getValueIsAdjusting()) {
+				if (!(e.getValueIsAdjusting() || tabla.getSelectedRow() < 0 ) ) {
 
-					int result = JOptionPane.showConfirmDialog(null, "Quiere usar este cheque?", "",
+					int result = JOptionPane.showConfirmDialog(null, "Quiere usar este cheque?", "Confirmacion",
 							JOptionPane.YES_NO_OPTION);
 					if (result == JOptionPane.YES_OPTION) {
 						int idCheque = (int) tabla.getValueAt(tabla.getSelectedRow(), 0);
 						Double monto = (Double) tabla.getValueAt(tabla.getSelectedRow(), 1);
 						getModelo().actualizarEstadoCheque(idCheque, monto);
+						actualizar();
 					}
 				}
 			}
 		});
+	}
 
+	@Override
+	public void actualizar() {
+		tabla.setModel(new MiModeloChequesDisponibles(getModelo(), this.getMontoAPagar()));
 	}
 
 	@Override
