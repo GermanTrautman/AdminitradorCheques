@@ -39,15 +39,19 @@ public class JFormularioPago extends JFormularioBase implements IVistaPagoConChe
 
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				if (!(e.getValueIsAdjusting() || tabla.getSelectedRow() < 0 ) ) {
+				if (!(e.getValueIsAdjusting() || tabla.getSelectedRow() <= 0)) {
 
-					int result = JOptionPane.showConfirmDialog(null, "Quiere usar este cheque?", "Confirmacion",
-							JOptionPane.YES_NO_OPTION);
-					if (result == JOptionPane.YES_OPTION) {
-						int idCheque = (int) tabla.getValueAt(tabla.getSelectedRow(), 0);
-						Double monto = (Double) tabla.getValueAt(tabla.getSelectedRow(), 1);
-						getModelo().actualizarEstadoCheque(idCheque, monto);
-						actualizar();
+					int idCheque = (int) (tabla.getValueAt(tabla.getSelectedRow(), 0) != "N/A"
+							? tabla.getValueAt(tabla.getSelectedRow(), 0)
+							: -1);
+					if (idCheque > 0 && getMontoAPagar() > 0) {
+						int result = JOptionPane.showConfirmDialog(null, "Quiere usar este cheque?", "Confirmacion",
+								JOptionPane.YES_NO_OPTION);
+						if (result == JOptionPane.YES_OPTION) {
+							double montoAPagar = Double.valueOf(txtMontoPagar.getText());
+							getModelo().actualizarEstadoCheque(idCheque, montoAPagar);
+							actualizar();
+						}
 					}
 				}
 			}
@@ -70,7 +74,7 @@ public class JFormularioPago extends JFormularioBase implements IVistaPagoConChe
 
 	@Override
 	public JTable getTabla() {
-		return this.tabla;
+		return tabla;
 	}
 
 }

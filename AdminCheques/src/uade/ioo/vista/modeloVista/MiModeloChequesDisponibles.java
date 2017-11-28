@@ -34,11 +34,8 @@ public class MiModeloChequesDisponibles extends AbstractTableModel {
 
 	public Object getValueAt(int fila, int col) {
 		if (fila == 0) {
-
 			if (col == 0) {
-
 				return "Numero De Cheque";
-
 			}
 			if (col == 1) {
 				return "Monto";
@@ -46,23 +43,19 @@ public class MiModeloChequesDisponibles extends AbstractTableModel {
 			if (col == 2) {
 				return "Fecha de Vencimiento (YYYY-MM-DD)";
 			}
-
 		}
-		if (cheques.get(fila - 1).isActive() &&  cheques.get(fila - 1).getMonto() >= this.montoAPagar){
-
+		//if (cheques.get(fila - 1).isActive() && cheques.get(fila - 1).getMonto() >= this.montoAPagar) {
+		if (cheques.get(fila - 1).isActive()) {
 			if (col == 0 && fila != 0) {
-
 				return (Integer) cheques.get(fila - 1).getNumero();
 			}
 			if (col == 1 && fila != 0) {
-
 				return cheques.get(fila - 1).getMonto();
 			}
 			if (col == 2 && fila != 0) {
 				return cheques.get(fila - 1).getDate();
 			}
 		}
-
 		return "N/A";
 	}
 
