@@ -4,16 +4,17 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public abstract class Cheque {
-	
+
 	private int numero;
 	private double monto;
-	private Calendar calendar = new GregorianCalendar();
+	private Calendar calendar;
 	private boolean isActive;
 
-	public Cheque(int numero, double monto) {
+	public Cheque(int numero, double monto, Calendar fecha) {
 		super();
 		this.numero = numero;
 		this.monto = monto;
+		calendar = fecha;
 		isActive = true;
 	}
 
@@ -27,10 +28,9 @@ public abstract class Cheque {
 
 	public String getDate() {
 
-		return calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 2) + "-"
-				+ calendar.get(Calendar.DATE);
+		return calendar.get(Calendar.DATE) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.YEAR);
 	}
-	
+
 	public Calendar getCalendar() {
 		return calendar;
 	}

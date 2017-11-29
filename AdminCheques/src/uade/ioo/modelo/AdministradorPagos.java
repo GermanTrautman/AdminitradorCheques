@@ -2,6 +2,7 @@ package uade.ioo.modelo;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import uade.ioo.observer.Observado;
@@ -83,8 +84,9 @@ public class AdministradorPagos extends Observado {
 		for (Cheque c : cheques) {
 			long segundos = (c.getCalendar().getTimeInMillis() - Calendar.getInstance().getTimeInMillis()) / 1000;
 			int horas = (int) (segundos / 3600);
-			if (horas >= 0 && horas <= 48) {
-				result += c.getMonto();
+			ChequeDeTerceros c2 = (ChequeDeTerceros) c;
+			if (horas >= 0 && horas <= 48 && c2.getEstadoCheque() == EstadoChequeEnum.RECIBIDO) {
+				result += c2.getMonto();
 			}
 		}
 		return result;
@@ -120,7 +122,7 @@ public class AdministradorPagos extends Observado {
 			if (cheques.get(i).getNumero() == idCheque) {
 				double diferencia = monto - cheques.get(i).getMonto();
 				if (diferencia > 0) { // si se paga con un cheque de monto inferior, se emite uno propio
-					ChequePropio c = new ChequePropio(chequera.getCheques().size() + 1, diferencia);
+					ChequePropio c = new ChequePropio(chequera.getCheques().size() + 1, diferencia, new GregorianCalendar());
 					chequera.getCheques().add(c);
 				}
 				((ChequeDeTerceros) cheques.get(i)).setEstadoCheque(EstadoChequeEnum.ENTREGADO);

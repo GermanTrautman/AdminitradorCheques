@@ -44,7 +44,6 @@ public class MiModeloChequesDisponibles extends AbstractTableModel {
 				return "Fecha de Vencimiento (YYYY-MM-DD)";
 			}
 		}
-		//if (cheques.get(fila - 1).isActive() && cheques.get(fila - 1).getMonto() >= this.montoAPagar) {
 		if (cheques.get(fila - 1).isActive()) {
 			if (col == 0 && fila != 0) {
 				return (Integer) cheques.get(fila - 1).getNumero();

@@ -13,15 +13,14 @@ public class AgregarChequeTerceroController implements ActionListener {
 
 	private AdministradorPagos modelo;
 	private IVistaAgregarChequeTercero vista;
-	
-	public AgregarChequeTerceroController(AdministradorPagos modelo, IVistaAgregarChequeTercero vista){
+
+	public AgregarChequeTerceroController(AdministradorPagos modelo, IVistaAgregarChequeTercero vista) {
 		this.modelo = modelo;
 		this.vista = vista;
 	}
-	
-	public void actionPerformed(ActionEvent arg0) {		
-		ChequeDeTerceros cheque = new ChequeDeTerceros(vista.getNumero(), 
-				vista.getMonto());
+
+	public void actionPerformed(ActionEvent arg0) {
+		ChequeDeTerceros cheque = new ChequeDeTerceros(vista.getNumero(), vista.getMonto(), vista.getFecha());
 		this.modelo.registrarChequeTerceros(cheque);
 		JOptionPane.showMessageDialog(null, "Cheque agregado correctamente");
 		vista.reset();
