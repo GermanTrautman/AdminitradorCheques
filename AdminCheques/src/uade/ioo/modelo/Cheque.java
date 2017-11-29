@@ -28,7 +28,7 @@ public abstract class Cheque {
 
 	public String getDate() {
 
-		return calendar.get(Calendar.DATE) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.YEAR);
+		return calendar.get(Calendar.DATE) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.YEAR);
 	}
 
 	public Calendar getCalendar() {

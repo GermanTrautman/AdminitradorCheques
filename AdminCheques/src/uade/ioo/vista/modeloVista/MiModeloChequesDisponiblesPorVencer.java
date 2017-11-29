@@ -7,17 +7,17 @@ import javax.swing.table.AbstractTableModel;
 
 import uade.ioo.modelo.AdministradorPagos;
 import uade.ioo.modelo.Cheque;
+import uade.ioo.modelo.ChequeDeTerceros;
+import uade.ioo.modelo.EstadoChequeEnum;
 
 public class MiModeloChequesDisponiblesPorVencer extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
 
 	private List<Cheque> cheques;
-	private Double montoAPagar;
 
-	public MiModeloChequesDisponiblesPorVencer(AdministradorPagos admin, Double montoAPagar) {
+	public MiModeloChequesDisponiblesPorVencer(AdministradorPagos admin) {
 		cheques = admin.getListaDeCheques();
-		this.montoAPagar = montoAPagar;
 	}
 
 	public void setCheques(List<Cheque> cheques) {
@@ -34,23 +34,23 @@ public class MiModeloChequesDisponiblesPorVencer extends AbstractTableModel {
 	}
 
 	public Object getValueAt(int fila, int col) {
-		if (!cheques.isEmpty()) {
-			long segundos = (cheques.get(fila - 1).getCalendar().getTimeInMillis()
-					- Calendar.getInstance().getTimeInMillis()) / 1000;
-			int horas = (int) (segundos / 3600);
-			if (fila == 0) {
-				if (col == 0) {
-					return "Numero De Cheque";
-				}
-				if (col == 1) {
-					return "Monto";
-				}
-				if (col == 2) {
-					return "Fecha de Vencimiento (YYYY-MM-DD)";
-				}
+		if (fila == 0) {
+			if (col == 0) {
+				return "Numero De Cheque";
 			}
+			if (col == 1) {
+				return "Monto";
+			}
+			if (col == 2) {
+				return "Fecha de Vencimiento (DD-MM-YYYY)";
+			}
+		} else {
 			// se muestran los cheques a vencer en 48hs
-			if (cheques.get(fila - 1).isActive() && horas >= 0 && horas <= 48) {
+			long diff = cheques.get(fila - 1).getCalendar().getTime().getTime()
+					- Calendar.getInstance().getTime().getTime();
+			long horas = diff / (1000 * 60 * 60 * 24);
+			if (cheques.get(fila - 1).isActive() && horas >= 0 && horas <= 48
+					&& ((ChequeDeTerceros) cheques.get(fila - 1)).getEstadoCheque() != EstadoChequeEnum.DEPOSITADO) {
 				if (col == 0 && fila != 0) {
 					return (Integer) cheques.get(fila - 1).getNumero();
 				}
@@ -62,6 +62,7 @@ public class MiModeloChequesDisponiblesPorVencer extends AbstractTableModel {
 				}
 			}
 		}
+
 		return "N/A";
 	}
 

@@ -61,7 +61,9 @@ public class JFormularioRecibirCheque extends JFormularioBase implements IVistaA
 	
 	public Calendar getFecha() {
 		String strFecha[] = this.txtFecha.getText().split("/|-");
-		return new GregorianCalendar(Integer.valueOf(strFecha[2]), Integer.valueOf(strFecha[1]), Integer.valueOf(strFecha[0]));
+		Calendar fecha = Calendar.getInstance();
+		fecha.set(Integer.valueOf(strFecha[2]), Integer.valueOf(strFecha[1]) - 1, Integer.valueOf(strFecha[0]));
+		return fecha;
 	}
 
 	@Override

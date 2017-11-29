@@ -13,7 +13,7 @@ public class JFormularioReporte extends JFormularioBase  implements IVistaPagoCo
 
 	private static final long serialVersionUID = 1L;
 
-	private JLabel lblMontoTotal = new JLabel();
+	//private JLabel lblMontoTotal = new JLabel();
 	private JLabel lblMontoDisponible = new JLabel();
 	private JLabel lblMontoPagado = new JLabel();
 	private JLabel lblMontoDepositado = new JLabel();
@@ -24,8 +24,8 @@ public class JFormularioReporte extends JFormularioBase  implements IVistaPagoCo
 	public JFormularioReporte(AdministradorPagos modelo) {
 		super(modelo);
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
-		this.getContentPane().add(new JLabel("Monto Total"));
-		this.getContentPane().add(lblMontoTotal);
+		//this.getContentPane().add(new JLabel("Monto Total"));
+		//this.getContentPane().add(lblMontoTotal);
 		this.getContentPane().add(new JLabel("Monto disponible para realizar pagos de cheques de terceros"));
 		this.getContentPane().add(lblMontoDisponible);
 		this.getContentPane().add(new JLabel("Monto pagado"));
@@ -42,7 +42,7 @@ public class JFormularioReporte extends JFormularioBase  implements IVistaPagoCo
 
 	@Override
 	public void actualizar() {
-		this.lblMontoTotal.setText(Double.toString(this.getModelo().getMontoTotalCheques()));
+		//this.lblMontoTotal.setText(Double.toString(this.getModelo().getMontoTotalCheques()));
 		this.lblMontoDisponible.setText(Double.toString(this.getModelo().getMontoDisponible()));
 		this.lblMontoPagado.setText(Double.toString(this.getModelo().getMontoPagado()));
 		this.lblMontoDepositado.setText(Double.toString(this.getModelo().getMontoDepositado()));

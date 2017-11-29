@@ -19,7 +19,7 @@ public class JFormularioPago extends JFormularioBase implements IVistaPagoConChe
 	private static final long serialVersionUID = 1L;
 
 	private JTextField txtMontoPagar = new JTextField();
-	private JButton btnPagar = new JButton("Determinar Cheques a Usar");
+	//private JButton btnPagar = new JButton("Determinar Cheques a Usar");
 	private JTable tabla;
 
 	public JFormularioPago(AdministradorPagos modelo) {
@@ -28,9 +28,9 @@ public class JFormularioPago extends JFormularioBase implements IVistaPagoConChe
 
 		this.getContentPane().add(new JLabel("Monto a Pagar:"));
 		this.getContentPane().add(txtMontoPagar);
-		this.getContentPane().add(btnPagar);
-		btnPagar.setMaximumSize(getMaximumSize());
-		btnPagar.addActionListener(new PagarChequeController(this.getModelo(), this));
+		//this.getContentPane().add(btnPagar);
+		//btnPagar.setMaximumSize(getMaximumSize());
+		//btnPagar.addActionListener(new PagarChequeController(this.getModelo(), this));
 
 		this.tabla = new JTable(new MiModeloChequesDisponibles(modelo, this.getMontoAPagar()));
 		this.getContentPane().add(tabla);
@@ -40,6 +40,7 @@ public class JFormularioPago extends JFormularioBase implements IVistaPagoConChe
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				if (!(e.getValueIsAdjusting() || tabla.getSelectedRow() <= 0)) {
+				//if (tabla.getSelectedRow() != 0) {
 
 					int idCheque = (int) (tabla.getValueAt(tabla.getSelectedRow(), 0) != "N/A"
 							? tabla.getValueAt(tabla.getSelectedRow(), 0)

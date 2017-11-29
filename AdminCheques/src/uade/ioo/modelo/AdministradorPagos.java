@@ -122,7 +122,7 @@ public class AdministradorPagos extends Observado {
 			if (cheques.get(i).getNumero() == idCheque) {
 				double diferencia = monto - cheques.get(i).getMonto();
 				if (diferencia > 0) { // si se paga con un cheque de monto inferior, se emite uno propio
-					ChequePropio c = new ChequePropio(chequera.getCheques().size() + 1, diferencia, new GregorianCalendar());
+					ChequePropio c = new ChequePropio(chequera.getCheques().size() + 1, diferencia, Calendar.getInstance());
 					chequera.getCheques().add(c);
 				}
 				((ChequeDeTerceros) cheques.get(i)).setEstadoCheque(EstadoChequeEnum.ENTREGADO);
